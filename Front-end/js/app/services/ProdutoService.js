@@ -10,10 +10,17 @@ class ProdutoService {
         })
         .then((response) => response.json)
         .then((produto) => {
-            console.log('Success', produto)
+            console.log('Success', produto);
+            alert('Produto adicionado!');
+        });
+    }
+
+    async listarTodos() {
+        return fetch('http://localhost:8080/produtos', {
+            method: 'GET'
         })
-        .then((error) => {
-            console.error('Error', error)
+        .then(function(response){
+            return response.json();
         });
     }
 }

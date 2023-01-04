@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de produtos</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content center py-3 mb-4 border-bottom">
+            <a href="#" class="d-flex align-itens-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <span class="fs-4">Consulta de produtos</span>
+            </a>
+        </header>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+    <main class="container">
+        <div id="consultaProdutosView">
+            
+        </div>
+    </main>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/app/controllers/ProdutoController.js"></script>
+    <script src="js/app/models/Produto.js"></script>
+    <script src="js/app/services/ProdutoService.js"></script>
+    <script src="js/app/models/PayloadProdutos.js"></script>
+    <script src="js/app/views/ConsultaProdutosView.js"></script>
+
+    <script>
+        let produtoController = new ProdutoController();
+    </script>
+</body>
+
+</html>
