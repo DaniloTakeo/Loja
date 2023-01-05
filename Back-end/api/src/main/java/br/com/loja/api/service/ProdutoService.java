@@ -13,7 +13,7 @@ public interface ProdutoService {
 
 	public Page<Produto> listarTodos(Pageable paginacao);
 	
-	public void atualizar(Produto produto, Long id);
+	public Produto atualizar(Produto produto, Long id);
 	
 	public void deletar(Long id);
 }

@@ -26,8 +26,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
-	public void atualizar(Produto produto, Long id) {
-		produtoRepository.save(produto);
+	public Produto atualizar(Produto produto, Long id) {
+		Produto produtoAtualizado = produtoRepository.findById(id).get();
+		
+		produtoAtualizado.setMarca(produto.getMarca());
+		produtoAtualizado.setDescricao(produto.getDescricao());
+		produtoAtualizado.setPreco(produto.getPreco());
+		
+		return produtoAtualizado;
 	}
 
 	@Override

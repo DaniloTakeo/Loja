@@ -46,17 +46,17 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtos);
 	}
 
-	@PutMapping
+	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Produto> atualizar(@RequestBody Produto produtoAtualizado, @PathVariable Long id) {
-		produtoService.atualizar(produtoAtualizado, id);
-
-		return ResponseEntity.ok(produtoAtualizado);
+		Produto produto = produtoService.atualizar(produtoAtualizado, id);
+		
+		return ResponseEntity.ok(produto);
 	}
 
-	@DeleteMapping
+	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity<Produto> deletar(@PathVariable Long id, @RequestBody Produto produtoDeletado) {
+	public ResponseEntity<Produto> deletar(@PathVariable Long id) {
 		produtoService.deletar(id);
 		
 		return ResponseEntity.ok().build();
