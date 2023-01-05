@@ -1,9 +1,10 @@
 class Produto {
 
-    constructor(marca, descricao, preco) {
+    constructor(marca, descricao, preco, id) {
         this._marca = marca;
         this._descricao = descricao;
         this._preco = preco;
+        this._id = id;
         Object.freeze(this);
     }
 
@@ -17,6 +18,10 @@ class Produto {
 
     get preco() {
         return this._preco;
+    }
+
+    get id() {
+        return this._id;
     }
 
     toString() {

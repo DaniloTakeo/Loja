@@ -23,9 +23,46 @@
     </div>
     <main class="container">
         <div id="consultaProdutosView">
-            
+            <!-- Tabela de produtos + menu de paginação -->
         </div>
     </main>
+
+    <!-- Modal de alteração e exclusão -->
+    <div class="modal fade" id="modalAlteracaoExclusao" tabindex="-1" aria-labelledby="modalAlteracaoExclusao" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalAlteracaoExclusao">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="inputModalId" class="form-label">Código</label>
+                            <input type="text" class="form-control" id="inputModalId" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputModalMarca" class="form-label">Marca</label>
+                            <input type="text" class="form-control" id="inputModalMarca">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputModalDescricao" class="form-label">Descrição</label>
+                            <input type="text" class="form-control" id="inputModalDescricao">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputModalPreco" class="form-label">Preço</label>
+                            <input type="text" class="form-control" id="inputModalPreco">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Excluir produto</button>
+                        <button type="button" class="btn btn-primary">Salvar alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/app/controllers/ProdutoController.js"></script>
     <script src="js/app/models/Produto.js"></script>

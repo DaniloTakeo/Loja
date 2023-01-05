@@ -24,11 +24,11 @@ class ConsultaProdutosView {
             <tbody>
                 ${this._payloadContent.map(p => {
                     return `
-                        <tr>
-                            <td>${p.id}</td>
-                            <td>${p.marca}</td>
-                            <td>${p.descricao}</td>
-                            <td>${p.preco}</td>
+                        <tr id="produto${p.id}" class="produto" data-bs-toggle="modal" data-bs-target="#modalAlteracaoExclusao">
+                            <td class="produto-id">${p.id}</td>
+                            <td class="produto-marca">${p.marca}</td>
+                            <td class="produto-descricao">${p.descricao}</td>
+                            <td class="produto-preco">${p.preco}</td>
                         </tr>
                     `
                 }).join('')}
@@ -40,6 +40,27 @@ class ConsultaProdutosView {
         return template;
     }
 
+    update() {
+        this._setContent();
+        this._setNumberOfPages();
+        this._elemento.innerHTML = this._template();
+    }
+
+    fillModal(modal, produtoSelecionado) {
+        console.log(produtoSelecionado);
+        let modalTitle = modal.querySelector('.modal-title');
+        let id = modal.querySelector('#inputModalId');
+        let marca = modal.querySelector('#inputModalMarca');
+        let descricao = modal.querySelector('#inputModalDescricao');
+        let preco = modal.querySelector('#inputModalPreco');
+
+        modalTitle.innerHTML = `${produtoSelecionado.marca} ${produtoSelecionado.descricao}`;
+        id.value = produtoSelecionado.id;
+        marca.value = produtoSelecionado.marca;
+        descricao.value = produtoSelecionado.descricao;
+        preco.value = produtoSelecionado.preco;
+    }
+ 
     setPayload(payload) {
         this._paylaod = payload;
     }
@@ -51,12 +72,6 @@ class ConsultaProdutosView {
     _setNumberOfPages() {
         console.log(this._paylaod);
         this._numberOfPages = this._paylaod.totalPages;
-    }
-
-    update() {
-        this._setContent();
-        this._setNumberOfPages();
-        this._elemento.innerHTML = this._template();
     }
 
     _pagination() {

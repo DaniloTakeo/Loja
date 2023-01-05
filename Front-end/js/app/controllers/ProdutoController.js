@@ -8,6 +8,7 @@ class ProdutoController {
         this._inputDescricao = $('#inputDescricao');
         this._inputPreco = $('#inputPreco');
         this._consultaView = $('#consultaProdutosView');
+        this._modal = $('#modalAlteracaoExclusao');
 
         this._produtoService = new ProdutoService();
         this._produtosPayload = new PayloadProdutos();
@@ -43,6 +44,8 @@ class ProdutoController {
 
         this._consultaProdutosView.update();
         this._paginationActions();
+
+        this._lineActions();
     }
 
     _paginationActions() {
@@ -81,5 +84,33 @@ class ProdutoController {
             this._consultaProdutosView.previousPage();
             this.listar(this._consultaProdutosView.activePage);
         })
+    }
+
+    _modalAction(produtoSelecionado) {
+        this._consultaProdutosView.fillModal(this._modal, produtoSelecionado);
+    }
+
+    _lineActions() {
+        this._tableLines = document.querySelectorAll('.produto');
+        console.log(this._tableLines);
+        this._tableLines.forEach(p => {
+            p.addEventListener('click', () => {
+                console.log('fui clicado');
+                this._produtoSelecionado = this._criarProduto(p.querySelector('.produto-marca').textContent,
+                    p.querySelector('.produto-descricao').textContent, 
+                    p.querySelector('.produto-preco').textContent, 
+                    p.querySelector('.produto-id').textContent);
+                
+                console.log(this._produtoSelecionado);
+                this._modalAction(this._produtoSelecionado);
+            })
+        });
+    }
+
+    _criarProduto(marca, descricao, preco, id) {
+        let produtoSelecionado = new Produto(marca, descricao, preco, id);
+        console.log(produtoSelecionado);
+
+        return produtoSelecionado;
     }
 }
