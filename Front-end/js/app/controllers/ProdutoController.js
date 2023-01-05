@@ -7,14 +7,13 @@ class ProdutoController {
         this._inputMarca = $('#inputMarca');
         this._inputDescricao = $('#inputDescricao');
         this._inputPreco = $('#inputPreco');
-        this._consultaView = $('#consultaProdutosView')
+        this._consultaView = $('#consultaProdutosView');
 
         this._produtoService = new ProdutoService();
         this._produtosPayload = new PayloadProdutos();
-
-        this.listar();
-
         this._consultaProdutosView = new ConsultaProdutosView(this._consultaView);
+
+        this.listar(this._consultaProdutosView.activePage);
     }
 
     adicionar(event) {
@@ -27,8 +26,6 @@ class ProdutoController {
         )
 
         this._produtoService.adicionar(produto.toString());
-
-        console.log(JSON.stringify(produto.toString()));
         this._limparFormulario();
     }
 
@@ -40,13 +37,49 @@ class ProdutoController {
         this._inputMarca.focus();
     }
 
-    async listar() {
-        this._produtosPayload.adicionarProdutos(await this._produtoService.listarTodos());
-        this._consultaProdutosView.setContent(this._produtosPayload.getContent());
-        
-        console.log(this._produtosPayload.getPayload());
-        console.log(this._produtosPayload.getContent());
+    async listar(pagina) {
+        this._produtosPayload.adicionarProdutos(await this._produtoService.listarTodos(pagina));
+        this._consultaProdutosView.setPayload(this._produtosPayload.getPayload());
 
         this._consultaProdutosView.update();
+        this._paginationActions();
+    }
+
+    _paginationActions() {
+        this._nextButtonAction();
+        this._previousButtonAction();
+        this._activePageHighlight();
+        this._pageButtonsAction();
+    }
+
+    _nextButtonAction() {
+        this._nextButton = document.querySelector('#nextButton');
+        this._nextButton.addEventListener('click', () => {
+             this._consultaProdutosView.nextPage();
+             this.listar(this._consultaProdutosView.activePage);
+         })
+    }
+
+    _activePageHighlight() {
+        this._activePageButton = document.querySelector(`.page${this._consultaProdutosView.activePage + 1}`);
+        this._activePageButton.classList.add('active');
+    }
+
+    _pageButtonsAction() {
+        this._pageButtons = document.querySelectorAll('.page-button');
+        this._pageButtons.forEach(b => {
+            b.addEventListener('click', () => {
+                this._consultaProdutosView.setPageNumber(b.textContent - 1);
+                this.listar(this._consultaProdutosView.activePage);
+            })
+        })
+    }
+
+    _previousButtonAction() {
+        this._previousButton = document.querySelector('#previousButton');
+        this._previousButton.addEventListener('click', () => {
+            this._consultaProdutosView.previousPage();
+            this.listar(this._consultaProdutosView.activePage);
+        })
     }
 }

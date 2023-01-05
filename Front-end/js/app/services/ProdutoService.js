@@ -15,8 +15,8 @@ class ProdutoService {
         });
     }
 
-    async listarTodos() {
-        return fetch('http://localhost:8080/produtos', {
+    async listarTodos(pagina) {
+        return fetch(`http://localhost:8080/produtos?page=${pagina}`, {
             method: 'GET'
         })
         .then(function(response){

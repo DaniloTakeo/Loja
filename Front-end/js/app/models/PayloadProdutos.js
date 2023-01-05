@@ -12,7 +12,4 @@ class PayloadProdutos {
         return this._paginaProdutos;
     }
 
-    getContent() {
-        return this._paginaProdutos.content;
-    }
 }
