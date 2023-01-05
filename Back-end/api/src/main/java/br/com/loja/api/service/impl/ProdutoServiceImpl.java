@@ -25,4 +25,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 		return produtoRepository.findAll(paginacao);
 	}
 
+	@Override
+	public void atualizar(Produto produto, Long id) {
+		produtoRepository.save(produto);
+	}
+
+	@Override
+	public void deletar(Long id) {
+		produtoRepository.deleteById(id);
+	}
+
 }
