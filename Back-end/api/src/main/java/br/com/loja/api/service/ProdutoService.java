@@ -12,4 +12,8 @@ public interface ProdutoService {
 	public Produto cadastrar(Produto produto);
 
 	public Page<Produto> listarTodos(Pageable paginacao);
+	
+	public Produto atualizar(Produto produto, Long id);
+	
+	public void deletar(Long id);
 }

@@ -25,4 +25,20 @@ public class ProdutoServiceImpl implements ProdutoService {
 		return produtoRepository.findAll(paginacao);
 	}
 
+	@Override
+	public Produto atualizar(Produto produto, Long id) {
+		Produto produtoAtualizado = produtoRepository.findById(id).get();
+		
+		produtoAtualizado.setMarca(produto.getMarca());
+		produtoAtualizado.setDescricao(produto.getDescricao());
+		produtoAtualizado.setPreco(produto.getPreco());
+		
+		return produtoAtualizado;
+	}
+
+	@Override
+	public void deletar(Long id) {
+		produtoRepository.deleteById(id);
+	}
+
 }
