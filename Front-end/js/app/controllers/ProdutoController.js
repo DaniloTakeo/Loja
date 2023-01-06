@@ -9,6 +9,10 @@ class ProdutoController {
         this._inputPreco = $('#inputPreco');
         this._consultaView = $('#consultaProdutosView');
         this._modal = $('#modalAlteracaoExclusao');
+        this._botaoExclusao = $('#botaoExclusao');
+        this._botaoAtualizar = $('#botaoAtualizar');
+
+        console.log(this._botaoExclusao);
 
         this._produtoService = new ProdutoService();
         this._produtosPayload = new PayloadProdutos();
@@ -44,7 +48,6 @@ class ProdutoController {
 
         this._consultaProdutosView.update();
         this._paginationActions();
-
         this._lineActions();
     }
 
@@ -58,8 +61,10 @@ class ProdutoController {
     _nextButtonAction() {
         this._nextButton = document.querySelector('#nextButton');
         this._nextButton.addEventListener('click', () => {
-             this._consultaProdutosView.nextPage();
-             this.listar(this._consultaProdutosView.activePage);
+            if(this._consultaProdutosView.activePage + 1 < this._consultaProdutosView.numberOfPages) {
+                this._consultaProdutosView.nextPage();
+                this.listar(this._consultaProdutosView.activePage);
+            }
          })
     }
 
@@ -88,28 +93,48 @@ class ProdutoController {
 
     _modalAction(produtoSelecionado) {
         this._consultaProdutosView.fillModal(this._modal, produtoSelecionado);
+        this._botaoExcluirEvento();
+        this._botaoAtualizarEvento(this._modal);
     }
 
     _lineActions() {
         this._tableLines = document.querySelectorAll('.produto');
-        console.log(this._tableLines);
         this._tableLines.forEach(p => {
             p.addEventListener('click', () => {
-                console.log('fui clicado');
                 this._produtoSelecionado = this._criarProduto(p.querySelector('.produto-marca').textContent,
                     p.querySelector('.produto-descricao').textContent, 
                     p.querySelector('.produto-preco').textContent, 
                     p.querySelector('.produto-id').textContent);
                 
-                console.log(this._produtoSelecionado);
                 this._modalAction(this._produtoSelecionado);
+                console.log(this._produtoSelecionado);
             })
         });
     }
 
+    _botaoExcluirEvento() {
+        this._botaoExclusao.addEventListener('click', () => {
+            this._produtoService.excluir(this._produtoSelecionado.id);
+            this._consultaProdutosView.update();
+        })
+    }
+
+    _botaoAtualizarEvento(modal) {
+        this._botaoAtualizar.addEventListener('click', () => {
+            let id = modal.querySelector('#inputModalId').value;
+            let marca = modal.querySelector('#inputModalMarca').value;
+            let descricao = modal.querySelector('#inputModalDescricao').value;
+            let preco = modal.querySelector('#inputModalPreco').value;
+
+            let produto = new Produto(marca, descricao, preco, id);
+            this._produtoService.alterar(id, produto.toString());
+            
+            this._consultaProdutosView.update();
+        })
+    }
+
     _criarProduto(marca, descricao, preco, id) {
         let produtoSelecionado = new Produto(marca, descricao, preco, id);
-        console.log(produtoSelecionado);
 
         return produtoSelecionado;
     }

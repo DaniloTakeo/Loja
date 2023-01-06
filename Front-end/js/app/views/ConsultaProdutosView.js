@@ -47,7 +47,6 @@ class ConsultaProdutosView {
     }
 
     fillModal(modal, produtoSelecionado) {
-        console.log(produtoSelecionado);
         let modalTitle = modal.querySelector('.modal-title');
         let id = modal.querySelector('#inputModalId');
         let marca = modal.querySelector('#inputModalMarca');
@@ -120,5 +119,9 @@ class ConsultaProdutosView {
 
     get activePage() {
         return this._activePage;
+    }
+
+    get numberOfPages() {
+        return this._numberOfPages;
     }
 }

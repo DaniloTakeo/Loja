@@ -16,10 +16,13 @@
                 <span class="fs-4">Consulta de produtos</span>
             </a>
         </header>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="d-flex justify-content-between align-content">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <button class="btn btn-success">Cadastrar novo produto</button>
+        </div>
     </div>
     <main class="container">
         <div id="consultaProdutosView">
@@ -55,8 +58,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Excluir produto</button>
-                        <button type="button" class="btn btn-primary">Salvar alterações</button>
+                        <button type="button" id="botaoExclusao" class="btn btn-danger" data-bs-dismiss="modal">Excluir produto</button>
+                        <button type="button" id="botaoAtualizar" class="btn btn-primary" data-bs-dismiss="modal">Salvar alterações</button>
                     </div>
                 </form>
             </div>

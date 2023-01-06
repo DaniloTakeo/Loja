@@ -23,4 +23,22 @@ class ProdutoService {
             return response.json();
         });
     }
+
+    alterar(id, produto) {
+        fetch(`http://localhost:8080/produtos/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(produto)
+        })
+        .then(response => response.json)
+    }
+
+    excluir(id) {
+        fetch(`http://localhost:8080/produtos/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json)
+    }
 }
