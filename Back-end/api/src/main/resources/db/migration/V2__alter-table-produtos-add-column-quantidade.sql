@@ -1,0 +1,1 @@
+ALTER TABLE produtos ADD quantidade BIGINT DEFAULT 0;

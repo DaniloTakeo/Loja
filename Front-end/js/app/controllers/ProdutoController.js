@@ -60,17 +60,22 @@ class ProdutoController {
 
     _nextButtonAction() {
         this._nextButton = document.querySelector('#nextButton');
-        this._nextButton.addEventListener('click', () => {
-            if(this._consultaProdutosView.activePage + 1 < this._consultaProdutosView.numberOfPages) {
-                this._consultaProdutosView.nextPage();
-                this.listar(this._consultaProdutosView.activePage);
-            }
-         })
+
+        if(this._nextButton != null) {
+            this._nextButton.addEventListener('click', () => {
+                if(this._consultaProdutosView.activePage + 1 < this._consultaProdutosView.numberOfPages) {
+                    this._consultaProdutosView.nextPage();
+                    this.listar(this._consultaProdutosView.activePage);
+                }
+             })
+        } 
     }
 
     _activePageHighlight() {
         this._activePageButton = document.querySelector(`.page${this._consultaProdutosView.activePage + 1}`);
-        this._activePageButton.classList.add('active');
+        if(this._activePageButton != null) {
+            this._activePageButton.classList.add('active');
+        }
     }
 
     _pageButtonsAction() {
@@ -85,10 +90,12 @@ class ProdutoController {
 
     _previousButtonAction() {
         this._previousButton = document.querySelector('#previousButton');
-        this._previousButton.addEventListener('click', () => {
-            this._consultaProdutosView.previousPage();
-            this.listar(this._consultaProdutosView.activePage);
-        })
+        if(this._previousButton != null) {
+            this._previousButton.addEventListener('click', () => {
+                this._consultaProdutosView.previousPage();
+                this.listar(this._consultaProdutosView.activePage);
+            })
+        }
     }
 
     _modalAction(produtoSelecionado) {

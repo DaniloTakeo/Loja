@@ -43,6 +43,7 @@ class ConsultaProdutosView {
     update() {
         this._setContent();
         this._setNumberOfPages();
+        this._setTotalElements();
         this._elemento.innerHTML = this._template();
     }
 
@@ -64,6 +65,10 @@ class ConsultaProdutosView {
         this._paylaod = payload;
     }
 
+    _setTotalElements() {
+        this._totalElements = this._paylaod.totalElements;
+    }
+
     _setContent() {
         this._payloadContent = this._paylaod.content
     }
@@ -74,6 +79,7 @@ class ConsultaProdutosView {
     }
 
     _pagination() {
+        console.log(this._totalElements);
         if(this._totalElements < 10) {
             return '';
         } else {
