@@ -11,6 +11,7 @@ class ProdutoController {
         this._modal = $('#modalAlteracaoExclusao');
         this._botaoExclusao = $('#botaoExclusao');
         this._botaoAtualizar = $('#botaoAtualizar');
+        this._botaoCadastrar = $('#botaoCadastrar');
 
         console.log(this._botaoExclusao);
 
@@ -19,11 +20,10 @@ class ProdutoController {
         this._consultaProdutosView = new ConsultaProdutosView(this._consultaView);
 
         this.listar(this._consultaProdutosView.activePage);
+        this._botaoCadastrarEvento();
     }
 
-    adicionar(event) {
-        event.preventDefault();
-
+    adicionar() {
         let produto = new Produto(
             this._inputMarca.value,
             this._inputDescricao.value,
@@ -137,6 +137,12 @@ class ProdutoController {
             this._produtoService.alterar(id, produto.toString());
             
             this._consultaProdutosView.update();
+        })
+    }
+
+    _botaoCadastrarEvento() {
+        this._botaoCadastrar.addEventListener('click', () => {
+            this.adicionar();
         })
     }
 

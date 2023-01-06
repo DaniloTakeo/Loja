@@ -16,4 +16,6 @@ public interface ProdutoService {
 	public Produto atualizar(Produto produto, Long id);
 	
 	public void deletar(Long id);
+
+	public Produto buscarPorId(Long id);
 }

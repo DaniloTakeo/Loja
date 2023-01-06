@@ -5,24 +5,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de produtos</title>
+    <title>Gerenciar produtos</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <header class="d-flex flex-wrap justify-content center py-3 mb-4 border-bottom">
+    <header class="container">
+        <div class="d-flex flex-wrap justify-content-between center py-3 mb-4 border-bottom">
             <a href="#" class="d-flex align-itens-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <span class="fs-4">Consulta de produtos</span>
+                <span class="fs-4">Produtos</span>
             </a>
-        </header>
-        <div class="d-flex justify-content-between align-content">
-            <button class="btn btn-success">Cadastrar novo produto</button>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Produtos
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" type="button">Gerenciar produtos</button></li>
+                    <li><button class="dropdown-item" type="button">Entradas</button></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Vendas
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" type="button">Consultar vendas</button></li>
+                    <li><button class="dropdown-item" type="button">Realizar vendas</button></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Clientes
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" type="button">Consultar clientes</button></li>
+                </ul>
+            </div>
         </div>
+    </header>
+    <div class="container d-flex justify-content-between align-content">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastroProdutos">Cadastrar
+            novo produto</button>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
     </div>
     <main class="container">
         <div id="consultaProdutosView">
@@ -31,7 +61,8 @@
     </main>
 
     <!-- Modal de alteração e exclusão -->
-    <div class="modal fade" id="modalAlteracaoExclusao" tabindex="-1" aria-labelledby="modalAlteracaoExclusao" aria-hidden="true">
+    <div class="modal fade" id="modalAlteracaoExclusao" tabindex="-1" aria-labelledby="modalAlteracaoExclusao"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form>
@@ -58,8 +89,45 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="botaoExclusao" class="btn btn-danger" data-bs-dismiss="modal">Excluir produto</button>
-                        <button type="button" id="botaoAtualizar" class="btn btn-primary" data-bs-dismiss="modal">Salvar alterações</button>
+                        <button type="button" id="botaoExclusao" class="btn btn-danger" data-bs-dismiss="modal">Excluir
+                            produto</button>
+                        <button type="button" id="botaoAtualizar" class="btn btn-primary" data-bs-dismiss="modal">Salvar
+                            alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para cadastro de novos produtos -->
+    <div class="modal fade" id="modalCadastroProdutos" tabindex="-1" aria-labelledby="modalCadastroProdutos"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalCadastroProdutosTitle">Cadastrar novo produto</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="inputMarca" class="form-label">Marca do produto</label>
+                            <input type="text" class="form-control" id="inputMarca">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputDescricao" class="form-label">Descrição do produto</label>
+                            <input type="text" class="form-control" id="inputDescricao">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPreco" class="form-label">Preço</label>
+                            <input type="text" class="form-control" id="inputPreco">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="botaoCancelar" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" id="botaoCadastrar" class="btn btn-primary"
+                            data-bs-dismiss="modal">Cadastrar</button>
                     </div>
                 </form>
             </div>
@@ -67,6 +135,8 @@
     </div>
 
     <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap/bootstrap.esm.min.js"></script>
     <script src="js/app/controllers/ProdutoController.js"></script>
     <script src="js/app/models/Produto.js"></script>
     <script src="js/app/services/ProdutoService.js"></script>

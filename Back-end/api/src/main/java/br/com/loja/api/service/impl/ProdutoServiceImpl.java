@@ -41,4 +41,9 @@ public class ProdutoServiceImpl implements ProdutoService {
 		produtoRepository.deleteById(id);
 	}
 
+	@Override
+	public Produto buscarPorId(Long id) {
+		return produtoRepository.findById(id).get();
+	}
+
 }
