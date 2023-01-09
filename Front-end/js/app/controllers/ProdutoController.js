@@ -12,15 +12,20 @@ class ProdutoController {
         this._botaoExclusao = $('#botaoExclusao');
         this._botaoAtualizar = $('#botaoAtualizar');
         this._botaoCadastrar = $('#botaoCadastrar');
-
-        console.log(this._botaoExclusao);
+        this._header = $('#cabecalho');
 
         this._produtoService = new ProdutoService();
         this._produtosPayload = new PayloadProdutos();
         this._consultaProdutosView = new ConsultaProdutosView(this._consultaView);
-
+        this._headerView = new HeaderView(this._header);
+ 
         this.listar(this._consultaProdutosView.activePage);
         this._botaoCadastrarEvento();
+        this._renderizarCabecalho();
+    }
+
+    _renderizarCabecalho() {
+        this._headerView.update('Gerenciar Produtos');
     }
 
     adicionar() {
@@ -32,6 +37,7 @@ class ProdutoController {
 
         this._produtoService.adicionar(produto.toString());
         this._limparFormulario();
+        this.listar(this._consultaProdutosView.activePage);
     }
 
     _limparFormulario() {

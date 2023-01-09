@@ -5,8 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entrada de produtos</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-    
+    <header id="cabecalho" class="container">
+
+    </header>
+    <main class="container">
+        <form>
+            <div class="mb-3">
+                <label for="inputProduto" class="form-label">Produto</label>
+                <select class="form-select form-select mb-3" aria-label=".form-select-lg example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+            </div>
+            <div class="mb-3">
+                <label for="inputData" class="form-label">Data</label>
+                <input type="date" class="form-control" id="inputData">
+            </div>
+            <div class="mb-3">
+                <label for="inputQuantidade" class="form-label">Quantidade</label>
+                <input type="text" class="form-control" id="inputQuantidade">
+            </div>
+            <button class="btn btn-primary">Cadastar</button>
+        </form>
+        <div id="consultaEntradasView">
+
+        </div>
+    </main>
+
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap/bootstrap.esm.min.js"></script>
+    <script src="js/app/controllers/EntradaProdutosController.js"></script>
+    <script src="js/app/views/EntradaProdutosView.js"></script>
+    <script src="js/app/views/HeaderView.js"></script>
+    <script src="js/app/controllers/HeaderController.js"></script>
+
+    <script>
+        let entradaProdutosController = new EntradaProdutosController();
+        let headerController = new HeaderController();
+    </script>
 </body>
 </html>

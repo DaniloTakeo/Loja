@@ -3,6 +3,7 @@ class ConsultaProdutosView {
 
     constructor(elemento) {
         this._elemento = elemento;
+        this._nomeDaPagina = 'Gerenciar Produtos';
         this._payload;
         this._payloadContent;
         this._totalElements;
@@ -74,12 +75,10 @@ class ConsultaProdutosView {
     }
 
     _setNumberOfPages() {
-        console.log(this._paylaod);
         this._numberOfPages = this._paylaod.totalPages;
     }
 
     _pagination() {
-        console.log(this._totalElements);
         if(this._totalElements < 10) {
             return '';
         } else {
