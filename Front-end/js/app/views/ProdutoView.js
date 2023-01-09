@@ -8,6 +8,8 @@ class ProdutoView {
         this._totalElements;
         this._numberOfPages;
         this._activePage = 0;
+        this._paginationElement = document.createElement('div');
+        this._paginationElement.id = 'paginationElement';
     }
 
     _template() {
@@ -36,17 +38,17 @@ class ProdutoView {
                 }).join('')}
             </tbody>
         </table>
-        ${this._pagination()}
     `
 
         return template;
     }
 
     update() {
-        this._setContent();
-        this._setNumberOfPages();
-        this._setTotalElements();
+        this._getPayloadInformation();
         this._elemento.innerHTML = this._template();
+        this._elemento.appendChild(this._paginationElement);
+        this._paginationUtil();
+        this._paginationMenuView.update();
     }
 
     fillModal(modal, produtoSelecionado) {
@@ -69,44 +71,19 @@ class ProdutoView {
         this._paylaod = payload;
     }
 
-    _setTotalElements() {
+    _getPayloadInformation() {
         this._totalElements = this._paylaod.totalElements;
-    }
-
-    _setContent() {
-        this._payloadContent = this._paylaod.content
-    }
-
-    _setNumberOfPages() {
+        this._payloadContent = this._paylaod.content;
         this._numberOfPages = this._paylaod.totalPages;
     }
 
-    _pagination() {
-        if(this._totalElements < 10) {
-            return '';
-        } else {
-            return `
-                <nav aria-label="Page navigation" class="d-flex">
-                    <ul class="pagination col justify-content-center">
-                        <li id="previousButton" class="page-item"><a class="page-link">Previous</a></li>
-                        ${this._generatePageNumbers()}
-                        <li id="nextButton" class="page-item"><a class="page-link">Next</a></li>
-                    </ul>
-                </nav>
-            `
-        }
-    }
-
-    _generatePageNumbers() {
-        let pageNumbers = '';
-
-        for (let i = 0; i < this._numberOfPages; i++) {
-            let pageNumber = `<li class="page-item page${i+1} page-button"><a class="page-link"> ${i+1} </a></li>`;
-
-            pageNumbers += pageNumber;
-        }
-
-        return pageNumbers;
+    _paginationUtil() {
+        this._paginationMenuView = new PaginationMenuView(
+            this._paginationElement,
+            this._numberOfPages,
+            this._totalElements,
+            this._activePage
+        );
     }
 
     nextPage() {

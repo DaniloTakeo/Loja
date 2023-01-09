@@ -16,9 +16,10 @@ class ProdutoController {
         this._header = $('#cabecalho');
 
         this._produtoService = new ProdutoService();
-        this._produtosPayload = new PayloadProdutos();
+        this._produtosPayload = new Payload();
         this._produtosView = new ProdutoView(this._consultaView);
         this._headerController = new HeaderController(this._pageName);
+        this._paginationController = new PaginationController(this._produtosView, this);
  
         this.listar(this._produtosView.activePage);
         this._botaoCadastrarEvento();
@@ -46,59 +47,12 @@ class ProdutoController {
     }
 
     async listar(pagina) {
-        this._produtosPayload.adicionarProdutos(await this._produtoService.listarTodos(pagina));
+        this._produtosPayload.adicionarElementos(await this._produtoService.listarTodos(pagina));
         this._produtosView.setPayload(this._produtosPayload.getPayload());
 
         this._produtosView.update();
-        this._paginationActions();
+        this._paginationController.paginationActions();
         this._lineActions();
-    }
-
-    _paginationActions() {
-        this._nextButtonAction();
-        this._previousButtonAction();
-        this._activePageHighlight();
-        this._pageButtonsAction();
-    }
-
-    _nextButtonAction() {
-        this._nextButton = document.querySelector('#nextButton');
-
-        if(this._nextButton != null) {
-            this._nextButton.addEventListener('click', () => {
-                if(this._produtosView.activePage + 1 < this._produtosView.numberOfPages) {
-                    this._produtosView.nextPage();
-                    this.listar(this._produtosView.activePage);
-                }
-             })
-        } 
-    }
-
-    _activePageHighlight() {
-        this._activePageButton = document.querySelector(`.page${this._produtosView.activePage + 1}`);
-        if(this._activePageButton != null) {
-            this._activePageButton.classList.add('active');
-        }
-    }
-
-    _pageButtonsAction() {
-        this._pageButtons = document.querySelectorAll('.page-button');
-        this._pageButtons.forEach(b => {
-            b.addEventListener('click', () => {
-                this._produtosView.setPageNumber(b.textContent - 1);
-                this.listar(this._produtosView.activePage);
-            })
-        })
-    }
-
-    _previousButtonAction() {
-        this._previousButton = document.querySelector('#previousButton');
-        if(this._previousButton != null) {
-            this._previousButton.addEventListener('click', () => {
-                this._produtosView.previousPage();
-                this.listar(this._produtosView.activePage);
-            })
-        }
     }
 
     _modalAction(produtoSelecionado) {
