@@ -54,6 +54,10 @@
                             <label for="inputModalPreco" class="form-label">Preço</label>
                             <input type="text" class="form-control" id="inputModalPreco">
                         </div>
+                        <div class="mb-3">
+                            <label for="inputModalQuantidade" class="form-label">Quantidade</label>
+                            <input type="text" class="form-control" id="inputModalQuantidade" disabled>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="botaoExclusao" class="btn btn-danger" data-bs-dismiss="modal">Excluir
@@ -108,13 +112,12 @@
     <script src="js/app/models/Produto.js"></script>
     <script src="js/app/services/ProdutoService.js"></script>
     <script src="js/app/models/PayloadProdutos.js"></script>
-    <script src="js/app/views/ConsultaProdutosView.js"></script>
+    <script src="js/app/views/ProdutoView.js"></script>
     <script src="js/app/views/HeaderView.js"></script>
     <script src="js/app/controllers/HeaderController.js"></script>
 
     <script>
         let produtoController = new ProdutoController();
-        let headerController = new HeaderController();
     </script>
 </body>
 

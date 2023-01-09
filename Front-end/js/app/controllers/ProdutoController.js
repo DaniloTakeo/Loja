@@ -1,8 +1,9 @@
 
 class ProdutoController {
-
+    
     constructor() {
         let $ = document.querySelector.bind(document);
+        this._pageName = 'Gerenciar Produtos';
 
         this._inputMarca = $('#inputMarca');
         this._inputDescricao = $('#inputDescricao');
@@ -16,43 +17,39 @@ class ProdutoController {
 
         this._produtoService = new ProdutoService();
         this._produtosPayload = new PayloadProdutos();
-        this._consultaProdutosView = new ConsultaProdutosView(this._consultaView);
-        this._headerView = new HeaderView(this._header);
+        this._produtosView = new ProdutoView(this._consultaView);
+        this._headerController = new HeaderController(this._pageName);
  
-        this.listar(this._consultaProdutosView.activePage);
+        this.listar(this._produtosView.activePage);
         this._botaoCadastrarEvento();
-        this._renderizarCabecalho();
-    }
-
-    _renderizarCabecalho() {
-        this._headerView.update('Gerenciar Produtos');
     }
 
     adicionar() {
+        let quantidadePadrao = 0;
+
         let produto = new Produto(
             this._inputMarca.value,
             this._inputDescricao.value,
-            this._inputPreco.value
+            this._inputPreco.value,
+            quantidadePadrao
         )
 
         this._produtoService.adicionar(produto.toString());
         this._limparFormulario();
-        this.listar(this._consultaProdutosView.activePage);
+        location.reload();
     }
 
     _limparFormulario() {
         this._inputMarca.value = '';
         this._inputDescricao.value = '';
         this._inputPreco .value= '';
-        
-        this._inputMarca.focus();
     }
 
     async listar(pagina) {
         this._produtosPayload.adicionarProdutos(await this._produtoService.listarTodos(pagina));
-        this._consultaProdutosView.setPayload(this._produtosPayload.getPayload());
+        this._produtosView.setPayload(this._produtosPayload.getPayload());
 
-        this._consultaProdutosView.update();
+        this._produtosView.update();
         this._paginationActions();
         this._lineActions();
     }
@@ -69,16 +66,16 @@ class ProdutoController {
 
         if(this._nextButton != null) {
             this._nextButton.addEventListener('click', () => {
-                if(this._consultaProdutosView.activePage + 1 < this._consultaProdutosView.numberOfPages) {
-                    this._consultaProdutosView.nextPage();
-                    this.listar(this._consultaProdutosView.activePage);
+                if(this._produtosView.activePage + 1 < this._produtosView.numberOfPages) {
+                    this._produtosView.nextPage();
+                    this.listar(this._produtosView.activePage);
                 }
              })
         } 
     }
 
     _activePageHighlight() {
-        this._activePageButton = document.querySelector(`.page${this._consultaProdutosView.activePage + 1}`);
+        this._activePageButton = document.querySelector(`.page${this._produtosView.activePage + 1}`);
         if(this._activePageButton != null) {
             this._activePageButton.classList.add('active');
         }
@@ -88,8 +85,8 @@ class ProdutoController {
         this._pageButtons = document.querySelectorAll('.page-button');
         this._pageButtons.forEach(b => {
             b.addEventListener('click', () => {
-                this._consultaProdutosView.setPageNumber(b.textContent - 1);
-                this.listar(this._consultaProdutosView.activePage);
+                this._produtosView.setPageNumber(b.textContent - 1);
+                this.listar(this._produtosView.activePage);
             })
         })
     }
@@ -98,14 +95,14 @@ class ProdutoController {
         this._previousButton = document.querySelector('#previousButton');
         if(this._previousButton != null) {
             this._previousButton.addEventListener('click', () => {
-                this._consultaProdutosView.previousPage();
-                this.listar(this._consultaProdutosView.activePage);
+                this._produtosView.previousPage();
+                this.listar(this._produtosView.activePage);
             })
         }
     }
 
     _modalAction(produtoSelecionado) {
-        this._consultaProdutosView.fillModal(this._modal, produtoSelecionado);
+        this._produtosView.fillModal(this._modal, produtoSelecionado);
         this._botaoExcluirEvento();
         this._botaoAtualizarEvento(this._modal);
     }
@@ -116,7 +113,8 @@ class ProdutoController {
             p.addEventListener('click', () => {
                 this._produtoSelecionado = this._criarProduto(p.querySelector('.produto-marca').textContent,
                     p.querySelector('.produto-descricao').textContent, 
-                    p.querySelector('.produto-preco').textContent, 
+                    p.querySelector('.produto-preco').textContent,
+                    p.querySelector('.produto-quantidade').textContent, 
                     p.querySelector('.produto-id').textContent);
                 
                 this._modalAction(this._produtoSelecionado);
@@ -128,7 +126,7 @@ class ProdutoController {
     _botaoExcluirEvento() {
         this._botaoExclusao.addEventListener('click', () => {
             this._produtoService.excluir(this._produtoSelecionado.id);
-            this._consultaProdutosView.update();
+            this._produtosView.update();
         })
     }
 
@@ -138,11 +136,12 @@ class ProdutoController {
             let marca = modal.querySelector('#inputModalMarca').value;
             let descricao = modal.querySelector('#inputModalDescricao').value;
             let preco = modal.querySelector('#inputModalPreco').value;
+            let quantidade = modal.querySelector('#inputModalQuantidade').value;
 
-            let produto = new Produto(marca, descricao, preco, id);
+            let produto = new Produto(marca, descricao, preco, quantidade, id);
             this._produtoService.alterar(id, produto.toString());
             
-            this._consultaProdutosView.update();
+            this._produtosView.update();
         })
     }
 
@@ -152,8 +151,8 @@ class ProdutoController {
         })
     }
 
-    _criarProduto(marca, descricao, preco, id) {
-        let produtoSelecionado = new Produto(marca, descricao, preco, id);
+    _criarProduto(marca, descricao, preco, quantidade, id) {
+        let produtoSelecionado = new Produto(marca, descricao, preco, quantidade, id);
 
         return produtoSelecionado;
     }

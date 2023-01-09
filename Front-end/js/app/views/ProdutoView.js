@@ -1,9 +1,8 @@
 
-class ConsultaProdutosView {
+class ProdutoView {
 
     constructor(elemento) {
         this._elemento = elemento;
-        this._nomeDaPagina = 'Gerenciar Produtos';
         this._payload;
         this._payloadContent;
         this._totalElements;
@@ -20,6 +19,7 @@ class ConsultaProdutosView {
                     <th>Marca</th>
                     <th>Descrição</th>
                     <th>Preço</th>
+                    <th>Quantidade</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,8 @@ class ConsultaProdutosView {
                             <td class="produto-id">${p.id}</td>
                             <td class="produto-marca">${p.marca}</td>
                             <td class="produto-descricao">${p.descricao}</td>
-                            <td class="produto-preco">${p.preco}</td>
+                            <td class="produto-preco">${p.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+                            <td class="produto-quantidade">${p.quantidade}</td>
                         </tr>
                     `
                 }).join('')}
@@ -54,12 +55,14 @@ class ConsultaProdutosView {
         let marca = modal.querySelector('#inputModalMarca');
         let descricao = modal.querySelector('#inputModalDescricao');
         let preco = modal.querySelector('#inputModalPreco');
+        let quantidade = modal.querySelector('#inputModalQuantidade');
 
         modalTitle.innerHTML = `${produtoSelecionado.marca} ${produtoSelecionado.descricao}`;
         id.value = produtoSelecionado.id;
         marca.value = produtoSelecionado.marca;
         descricao.value = produtoSelecionado.descricao;
         preco.value = produtoSelecionado.preco;
+        quantidade.value =  produtoSelecionado.quantidade;
     }
  
     setPayload(payload) {
