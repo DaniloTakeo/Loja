@@ -46,4 +46,11 @@ public class ProdutoServiceImpl implements ProdutoService {
 		return produtoRepository.findById(id).get();
 	}
 
+	@Override
+	public void alterarQuantidade(Long id, Long quantidade) {
+		Produto produto = buscarPorId(id);
+		
+		produto.setQuantidade(produto.getQuantidade() + quantidade);
+	}
+
 }
