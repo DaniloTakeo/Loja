@@ -57,9 +57,7 @@ export class ProdutoController {
         this._produtosPayload.adicionarElementos(await this._produtoService.listarTodos(pagina));
         this._produtosView.setPayload(this._produtosPayload.getPayload());
 
-        this._produtosView.update();
-        this._paginationController.paginationActions();
-        this._lineActions();
+        this._tableInterections();
     }
 
     async listarPesquisa(pagina, stringPesquisa) {
@@ -68,10 +66,15 @@ export class ProdutoController {
             this._produtosPayload.adicionarElementos(await this._produtoService.listarPesquisa(pagina, stringPesquisa));
             this._produtosView.setPayload(this._produtosPayload.getPayload());
 
+            this._tableInterections();
+        }
+    }
+
+    _tableInterections() {
             this._produtosView.update();
             this._paginationController.paginationActions();
             this._lineActions();
-        }
+            this._ordenacaoCabecalhoTabela();
     }
 
     _modalAction(produtoSelecionado) {
@@ -100,7 +103,7 @@ export class ProdutoController {
         this._botaoExclusao.addEventListener('click', () => {
             this._produtoService.excluir(this._produtoSelecionado.id);
             this._produtosView.update();
-            location.reaload();
+            location.reload();
         })
     }
 
@@ -109,14 +112,15 @@ export class ProdutoController {
             let id = modal.querySelector('#inputModalId').value;
             let marca = modal.querySelector('#inputModalMarca').value;
             let descricao = modal.querySelector('#inputModalDescricao').value;
-            let preco = modal.querySelector('#inputModalPreco').value;
+            let preco = modal.querySelector('#inputModalPreco').value.replace(/[^0-9,]*/g, '').replace(',', '.');
             let quantidade = modal.querySelector('#inputModalQuantidade').value;
+            console.log(preco);
 
             let produto = new Produto(marca, descricao, preco, quantidade, id);
             this._produtoService.alterar(id, produto.toString());
             
             this._produtosView.update();
-            location.reaload();
+            location.reload();
         })
     }
 
@@ -137,6 +141,45 @@ export class ProdutoController {
     _botaoListarTodosEvento() {
         this._botaoListarTodos.addEventListener('click', () => {
             this.listar(this._produtosView.activePage);
+        })
+    }
+
+    _ordenacaoCabecalhoTabela() {
+        this._tableHeader = document.querySelector('#tableHeader');
+        console.log(this._tableHeader);
+        this._celulaId = this._tableHeader.querySelector('#codigo');
+        this._celulaMarca = this._tableHeader.querySelector('#marca');
+        this._ordenacaoPorId(this._celulaId);
+        this._ordenacaoPorMarca(this._celulaMarca);
+    }
+
+    _ordenacaoPorId(celulaId) {
+        celulaId.addEventListener('click', () => {
+            this._produtosView.payloadContent.sort((a, b) => {
+                if(a.id > b.id) {
+                    return 1;
+                } else if(a.id < b.id) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+            this._tableInterections();
+        })
+    }
+
+    _ordenacaoPorMarca(celulaMarca) {
+        celulaMarca.addEventListener('click', () => {
+            this._produtosView.payloadContent.sort((a, b) => {
+                if(a.marca > b.marca) {
+                    return 1;
+                } else if(a.marca < b.marca) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+            this._tableInterections();
         })
     }
 

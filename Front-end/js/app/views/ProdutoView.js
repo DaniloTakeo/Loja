@@ -14,13 +14,13 @@ export default class ProdutoView extends PaginatedView {
     _template() {
         let template = `
         <table class="table table-hover table-striped">
-            <thead>
+            <thead id="tableHeader">
                 <tr>
-                    <th>Código</th>
-                    <th>Marca</th>
-                    <th>Descrição</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
+                    <th id="codigo">Código</th>
+                    <th id="marca">Marca</th>
+                    <th id="descricao">Descrição</th>
+                    <th id="preco">Preço</th>
+                    <th id="quantidade">Quantidade</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,5 +83,9 @@ export default class ProdutoView extends PaginatedView {
             this._totalElements,
             this._activePage
         );
+    }
+
+    get payloadContent() {
+        return this._payloadContent;
     }
 }
