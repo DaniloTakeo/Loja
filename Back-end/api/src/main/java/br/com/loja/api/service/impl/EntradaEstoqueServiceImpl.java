@@ -1,6 +1,8 @@
 package br.com.loja.api.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.loja.api.model.EntradaEstoque;
@@ -26,6 +28,27 @@ public class EntradaEstoqueServiceImpl implements EntradaEstoqueService {
 		produtoEntrante.setQuantidade(produtoEntrante.getQuantidade() + entradaEstoque.getQuantidade());
 		
 		return entradaEstoqueCadastrada;
+	}
+
+	@Override
+	public Page<EntradaEstoque> listarTodos(Pageable paginacao) {
+		return entradaEstoqueRepository.findAll(paginacao);
+	}
+
+	@Override
+	public EntradaEstoque alterar(EntradaEstoque entradaEstoque, Long id) {
+		EntradaEstoque entradas = entradaEstoqueRepository.findById(id).get();
+		
+		entradas.setProduto(entradaEstoque.getProduto());
+		entradas.setDataEntrada(entradaEstoque.getDataEntrada());
+		entradas.setQuantidade(entradaEstoque.getQuantidade());
+		
+		return entradas;
+	}
+
+	@Override
+	public void deletar(Long id) {
+		entradaEstoqueRepository.deleteById(id);
 	}
 
 }
