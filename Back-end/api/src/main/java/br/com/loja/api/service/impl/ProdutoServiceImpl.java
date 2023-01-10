@@ -49,6 +49,12 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	public Page<Produto> listarPorTrechoDeDescricaoOuMarca(Pageable paginacao, String like) {
 		return produtoRepository.findByMarcaIsLikeOrDescricaoIsLike(paginacao, "%"+like+"%");
+
+	@Override
+	public void alterarQuantidade(Long id, Long quantidade) {
+		Produto produto = buscarPorId(id);
+		
+		produto.setQuantidade(produto.getQuantidade() + quantidade);
 	}
 
 }

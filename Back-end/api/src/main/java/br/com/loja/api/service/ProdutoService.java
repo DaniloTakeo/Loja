@@ -20,4 +20,7 @@ public interface ProdutoService {
 	public Produto buscarPorId(Long id);
 	
 	public Page<Produto> listarPorTrechoDeDescricaoOuMarca(Pageable paginacao, String like);
+	
+	public void alterarQuantidade(Long id, Long quantidade);
+	
 }
