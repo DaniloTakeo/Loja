@@ -16,5 +16,7 @@ public interface EntradaEstoqueService {
 	EntradaEstoque alterar(EntradaEstoque entradaEstoque, Long id);
 	
 	void deletar(Long id);
+	
+	EntradaEstoque buscarPorId(Long id);
 
 }
