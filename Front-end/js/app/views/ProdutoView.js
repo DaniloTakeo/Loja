@@ -1,13 +1,12 @@
+import PaginatedView from './PaginatedView.js';
 
-class ProdutoView {
+export default class ProdutoView extends PaginatedView {
 
     constructor(elemento) {
+        super();
         this._elemento = elemento;
         this._payload;
         this._payloadContent;
-        this._totalElements;
-        this._numberOfPages;
-        this._activePage = 0;
         this._paginationElement = document.createElement('div');
         this._paginationElement.id = 'paginationElement';
     }
@@ -84,29 +83,5 @@ class ProdutoView {
             this._totalElements,
             this._activePage
         );
-    }
-
-    nextPage() {
-        if(this._activePage != this._numberOfPages){
-            this._activePage += 1;
-        }
-    }
-
-    previousPage() {
-        if(this._activePage > 0) {
-            this._activePage -= 1;
-        }
-    }
-
-    setPageNumber(pageNumber) {
-        this._activePage = pageNumber;
-    }
-
-    get activePage() {
-        return this._activePage;
-    }
-
-    get numberOfPages() {
-        return this._numberOfPages;
     }
 }

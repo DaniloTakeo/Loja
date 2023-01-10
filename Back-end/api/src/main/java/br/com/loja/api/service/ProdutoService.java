@@ -18,4 +18,6 @@ public interface ProdutoService {
 	public void deletar(Long id);
 
 	public Produto buscarPorId(Long id);
+	
+	public Page<Produto> listarPorTrechoDeDescricaoOuMarca(Pageable paginacao, String like);
 }

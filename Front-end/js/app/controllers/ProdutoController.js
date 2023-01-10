@@ -1,5 +1,6 @@
+import ProdutoView from '../views/ProdutoView.js';
 
-class ProdutoController {
+export class ProdutoController {
     
     constructor() {
         let $ = document.querySelector.bind(document);
@@ -14,6 +15,9 @@ class ProdutoController {
         this._botaoAtualizar = $('#botaoAtualizar');
         this._botaoCadastrar = $('#botaoCadastrar');
         this._header = $('#cabecalho');
+        this._campoPesquisa = $('#cammpoPesquisa');
+        this._botaoPesquisa = $('#botaoPesquisa');
+        this._botaoListarTodos = $('#botaoListarTodos');
 
         this._produtoService = new ProdutoService();
         this._produtosPayload = new Payload();
@@ -23,6 +27,8 @@ class ProdutoController {
  
         this.listar(this._produtosView.activePage);
         this._botaoCadastrarEvento();
+        this._botaoPesquisarEvento();
+        this._botaoListarTodosEvento();
     }
 
     adicionar() {
@@ -47,12 +53,25 @@ class ProdutoController {
     }
 
     async listar(pagina) {
+        this._produtosPayload.limparPayload();
         this._produtosPayload.adicionarElementos(await this._produtoService.listarTodos(pagina));
         this._produtosView.setPayload(this._produtosPayload.getPayload());
 
         this._produtosView.update();
         this._paginationController.paginationActions();
         this._lineActions();
+    }
+
+    async listarPesquisa(pagina, stringPesquisa) {
+        if(this._campoPesquisa != false) {
+            this._produtosPayload.limparPayload();
+            this._produtosPayload.adicionarElementos(await this._produtoService.listarPesquisa(pagina, stringPesquisa));
+            this._produtosView.setPayload(this._produtosPayload.getPayload());
+
+            this._produtosView.update();
+            this._paginationController.paginationActions();
+            this._lineActions();
+        }
     }
 
     _modalAction(produtoSelecionado) {
@@ -81,6 +100,7 @@ class ProdutoController {
         this._botaoExclusao.addEventListener('click', () => {
             this._produtoService.excluir(this._produtoSelecionado.id);
             this._produtosView.update();
+            location.reaload();
         })
     }
 
@@ -96,12 +116,27 @@ class ProdutoController {
             this._produtoService.alterar(id, produto.toString());
             
             this._produtosView.update();
+            location.reaload();
         })
     }
 
     _botaoCadastrarEvento() {
         this._botaoCadastrar.addEventListener('click', () => {
             this.adicionar();
+        })
+    }
+
+    _botaoPesquisarEvento() {
+        this._botaoPesquisa.addEventListener('click', () => {
+            this._campoPesquisa = document.querySelector('#campoPesquisa');
+            this.listarPesquisa(this._produtosView.activePage, this._campoPesquisa.value);
+            this._campoPesquisa.value = '';
+        })
+    }
+
+    _botaoListarTodosEvento() {
+        this._botaoListarTodos.addEventListener('click', () => {
+            this.listar(this._produtosView.activePage);
         })
     }
 

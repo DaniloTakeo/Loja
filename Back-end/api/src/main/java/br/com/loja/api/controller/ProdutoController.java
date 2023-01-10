@@ -61,4 +61,12 @@ public class ProdutoController {
 		
 		return ResponseEntity.ok().build();
 	}
+	
+	@GetMapping("procurarPorMarcaOuDescricao/{stringLike}")
+	public ResponseEntity<Page<Produto>> listarPorTrechoDeDescricaoOuMarca(@PathVariable String stringLike, @PageableDefault(size = 10,
+			direction = Direction.ASC) Pageable paginacao) {
+		Page<Produto> produtosFiltrados = produtoService.listarPorTrechoDeDescricaoOuMarca(paginacao, stringLike);
+		
+		return ResponseEntity.ok(produtosFiltrados);
+	}
 }

@@ -14,11 +14,14 @@
         
     </header>
     <div class="container d-flex justify-content-between align-content">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastroProdutos">Cadastrar
-            novo produto</button>
+        <div>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastroProdutos">Cadastrar
+                novo produto</button>
+            <button id="botaoListarTodos" class="btn btn-success">Listar todos</button> 
+        </div>
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            <input id="campoPesquisa" class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+            <button id="botaoPesquisa" type="button" class="btn btn-outline-success">Pesquisar</button>
         </form>
     </div>
     <main class="container">
@@ -108,19 +111,17 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="js/bootstrap/bootstrap.esm.min.js"></script>
-    <script src="js/app/controllers/ProdutoController.js"></script>
+    <script type="module" src="js/app/controllers/ProdutoController.js"></script>
     <script src="js/app/models/Produto.js"></script>
     <script src="js/app/services/ProdutoService.js"></script>
     <script src="js/app/models/Payload.js"></script>
-    <script src="js/app/views/ProdutoView.js"></script>
+    <script type="module" src="js/app/views/ProdutoView.js"></script>
     <script src="js/app/views/HeaderView.js"></script>
     <script src="js/app/controllers/HeaderController.js"></script>
     <script src="js/app/views/PaginationMenuView.js"></script>
     <script src="js/app/controllers/PaginationController.js"></script>
-
-    <script>
-        let produtoController = new ProdutoController();
-    </script>
+    <script type="module" src="js/app/views/PaginatedView.js"></script>
+    <script type="module" src="js/app/app.js"></script>
 </body>
 
 </html>

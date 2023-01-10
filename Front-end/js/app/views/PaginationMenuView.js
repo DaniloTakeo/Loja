@@ -40,20 +40,4 @@ class PaginationMenuView {
 
         return pageNumbers;
     }
-
-    nextPage() {
-        if(this._activePage != this._numberOfPages){
-            this._activePage += 1;
-        }
-    }
-
-    previousPage() {
-        if(this._activePage > 0) {
-            this._activePage -= 1;
-        }
-    }
-
-    setPageNumber(pageNumber) {
-        this._activePage = pageNumber;
-    }
 }

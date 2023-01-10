@@ -1,7 +1,11 @@
 class ProdutoService {
 
+    constructor() {
+        this._defaultAPIadress = `http://localhost:8080/`;
+    }
+
     adicionar(produto) {
-        fetch('http://localhost:8080/produtos', {
+        fetch(`${this._defaultAPIadress}produtos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -11,12 +15,20 @@ class ProdutoService {
         .then((response) => response.json)
         .then((produto) => {
             console.log('Success', produto);
-            alert('Produto adicionado!');
         });
     }
 
     async listarTodos(pagina) {
-        return fetch(`http://localhost:8080/produtos?page=${pagina}`, {
+        return fetch(`${this._defaultAPIadress}produtos?page=${pagina}`, {
+            method: 'GET'
+        })
+        .then(function(response){
+            return response.json();
+        });
+    }
+
+    async listarPesquisa(pagina, stringPesquisa) {
+        return fetch(`${this._defaultAPIadress}produtos/procurarPorMarcaOuDescricao/${stringPesquisa}?page=${pagina}`, {
             method: 'GET'
         })
         .then(function(response){
@@ -25,7 +37,7 @@ class ProdutoService {
     }
 
     alterar(id, produto) {
-        fetch(`http://localhost:8080/produtos/${id}`, {
+        fetch(`${this._defaultAPIadress}produtos/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -36,7 +48,7 @@ class ProdutoService {
     }
 
     excluir(id) {
-        fetch(`http://localhost:8080/produtos/${id}`, {
+        fetch(`${this._defaultAPIadress}produtos/${id}`, {
             method: 'DELETE'
         })
         .then(response => response.json)

@@ -12,4 +12,8 @@ class Payload {
         return this._paginaElementos;
     }
 
+    limparPayload() {
+        this._paginaElementos = [];
+    }
+
 }

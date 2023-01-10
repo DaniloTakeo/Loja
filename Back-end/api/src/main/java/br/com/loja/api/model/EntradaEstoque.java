@@ -26,7 +26,7 @@ public class EntradaEstoque {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
 	private Produto produto;
 	private LocalDate dataEntrada;
