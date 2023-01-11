@@ -1,3 +1,6 @@
 class EntradaProdutosView {
     
+    constructor() {
+
+    }
 }

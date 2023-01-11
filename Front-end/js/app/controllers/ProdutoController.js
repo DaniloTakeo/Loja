@@ -146,7 +146,6 @@ export class ProdutoController {
 
     _ordenacaoCabecalhoTabela() {
         this._tableHeader = document.querySelector('#tableHeader');
-        console.log(this._tableHeader);
         this._celulaId = this._tableHeader.querySelector('#codigo');
         this._celulaMarca = this._tableHeader.querySelector('#marca');
         this._ordenacaoPorId(this._celulaId);

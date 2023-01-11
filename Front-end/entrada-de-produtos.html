@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,35 +8,59 @@
     <title>Entrada de produtos</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
+
 <body>
     <header id="cabecalho" class="container">
 
     </header>
+    <div class="container">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistroEntradas">Registrar entrada</button>
+    </div>
     <main class="container">
-        <form>
-            <div class="mb-3">
-                <label for="inputProduto" class="form-label">Produto</label>
-                <select class="form-select form-select mb-3" aria-label=".form-select-lg example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-            </div>
-            <div class="mb-3">
-                <label for="inputData" class="form-label">Data</label>
-                <input type="date" class="form-control" id="inputData">
-            </div>
-            <div class="mb-3">
-                <label for="inputQuantidade" class="form-label">Quantidade</label>
-                <input type="text" class="form-control" id="inputQuantidade">
-            </div>
-            <button class="btn btn-primary">Cadastar</button>
-        </form>
         <div id="consultaEntradasView">
 
         </div>
     </main>
+
+    <!-- Modal para cadastro de entradas -->
+    <div class="modal fade" id="modalRegistroEntradas" tabindex="-1" aria-labelledby="modalRegistroEntradasLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalRegistroEntradas">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <div class="m-2">
+                                <label for="inputId" class="form-label m-1">Código do produto</label>
+                                <input id="inputId" type="text" class="form-control">
+                            </div>
+                            <div class="m-2">
+                                <label for="inputProduto" class="formm-label m-1">Produto</label>
+                                <input id="inputProduto" type="text" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="m-2">
+                                <label for="inputData">Data</label>
+                                <input id="inputData" type="date" class="form-control">
+                            </div>
+                            <div class="m-2">
+                                <label for="quantidade">Quantidade</label>
+                                <input id="inputQuantidade" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
@@ -44,6 +69,9 @@
     <script src="js/app/views/EntradaProdutosView.js"></script>
     <script src="js/app/views/HeaderView.js"></script>
     <script src="js/app/controllers/HeaderController.js"></script>
+    <script src="js/app/services/EntradaProdutoService.js"></script>
+    <script src="js/app/services/ProdutoService.js"></script>
     <script type="module" src="js/app/app.js"></script>
 </body>
+
 </html>

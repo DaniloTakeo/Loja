@@ -36,6 +36,15 @@ class ProdutoService {
         });
     }
 
+    async buscarPorId(id) {
+        return fetch(`${this._defaultAPIadress}produtos/${id}`, {
+            method: 'GET'
+        })
+        .then(function(response) {
+            return response.json();
+        });
+    }
+
     alterar(id, produto) {
         fetch(`${this._defaultAPIadress}produtos/${id}`, {
             method: 'PUT',
