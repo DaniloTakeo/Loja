@@ -32,6 +32,7 @@ public class EntradaEstoqueController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<EntradaEstoque> cadastrar(@RequestBody EntradaEstoque entradaEstoque, UriComponentsBuilder uriBuilder) {
+		System.out.println(entradaEstoque);
 		EntradaEstoque entradaEstoqueCadastrada = entradaEstoqueService.cadastrar(entradaEstoque);
 		
 		URI uri = uriBuilder.path("/entradaEstoque/{id}").buildAndExpand(entradaEstoqueCadastrada.getId()).toUri();

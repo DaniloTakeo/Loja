@@ -5,13 +5,14 @@ export class EntradaProdutosController {
 
         this._header = $('#cabecalho');
         this._modalRegistro = $('#modalRegistroEntradas');
-        this._pagName = 'Entrada de Produtos';
+        this._pageName = 'Entrada de Produtos';
 
-        this._headerController = new HeaderController(this._pagName);
+        this._headerController = new HeaderController(this._pageName);
         this._entradaService = new EntradaProdutoService();
         this._produtoService = new ProdutoService();
 
         this._preencherInputProduto();
+        this._botaoAdicionarAction();
     }
 
     async _preencherInputProduto() {
@@ -21,7 +22,6 @@ export class EntradaProdutosController {
             let id = inputId.value;
             if(id) {
                 let produto = await this._produtoService.buscarPorId(id);
-                console.log(produto);
                 if(produto) {
                     inputProduto.value = `${produto.marca} ${produto.descricao}`;
                 } else {
@@ -31,8 +31,41 @@ export class EntradaProdutosController {
         })
     }
 
-    _preencherInputData() {
+    async adicionar() {
         let inputData = this._modalRegistro.querySelector('#inputData');
+        let inputIdProduto = this._modalRegistro.querySelector('#inputId');
+        let inputQuantidade = this._modalRegistro.querySelector('#inputQuantidade');
 
+        let produto = await this._produtoService.buscarPorId(inputIdProduto.value);
+
+        console.log(produto);
+
+        let entradaProduto = new EntradaProduto(
+            new Date(inputData.value),
+            inputQuantidade.value,
+            produto
+        );
+
+        console.log(entradaProduto);
+
+        this._entradaService.adicionar(entradaProduto);
+        this._limparFormulario();
+        //location.reaload();
     }
+    
+    _limparFormulario() {
+        this._modalRegistro.querySelectorAll('.form-control').forEach(input => {
+            input.value = '';
+        });
+    }
+
+    _botaoAdicionarAction() {
+        let botaoAdicionar = this._modalRegistro.querySelector('#botaoAdicionar');
+        console.log(botaoAdicionar);
+
+        botaoAdicionar.addEventListener('click', () => {
+            this.adicionar();
+        })
+    }
+
 }

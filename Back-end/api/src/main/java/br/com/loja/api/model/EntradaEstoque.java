@@ -2,6 +2,8 @@ package br.com.loja.api.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,6 +31,8 @@ public class EntradaEstoque {
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
 	private Produto produto;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataEntrada;
 	private Long quantidade;
 	
