@@ -1,3 +1,5 @@
+import EntradaProdutosView from '../views/EntradaProdutosView.js';
+
 export class EntradaProdutosController {
 
     constructor() {
@@ -5,14 +7,18 @@ export class EntradaProdutosController {
 
         this._header = $('#cabecalho');
         this._modalRegistro = $('#modalRegistroEntradas');
+        this._entradasView = $('#consultaEntradasView');
         this._pageName = 'Entrada de Produtos';
 
         this._headerController = new HeaderController(this._pageName);
         this._entradaService = new EntradaProdutoService();
         this._produtoService = new ProdutoService();
+        this._entradasView = new EntradaProdutosView(this._entradasView);
+        this._paginationController = new PaginationController(this._produtosView, this);
 
         this._preencherInputProduto();
         this._botaoAdicionarAction();
+        this._listar();
     }
 
     async _preencherInputProduto() {
@@ -51,6 +57,10 @@ export class EntradaProdutosController {
         this._entradaService.adicionar(entradaProduto);
         this._limparFormulario();
         //location.reaload();
+    }
+
+    _listar() {
+        this._entradasView.update();
     }
     
     _limparFormulario() {

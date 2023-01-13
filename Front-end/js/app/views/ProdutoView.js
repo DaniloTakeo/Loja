@@ -13,30 +13,30 @@ export default class ProdutoView extends PaginatedView {
 
     _template() {
         let template = `
-        <table class="table table-hover table-striped">
-            <thead id="tableHeader">
-                <tr>
-                    <th id="codigo">Código</th>
-                    <th id="marca">Marca</th>
-                    <th id="descricao">Descrição</th>
-                    <th id="preco">Preço</th>
-                    <th id="quantidade">Quantidade</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${this._payloadContent.map(p => {
-                    return `
-                        <tr id="produto${p.id}" class="produto" data-bs-toggle="modal" data-bs-target="#modalAlteracaoExclusao">
-                            <td class="produto-id">${p.id}</td>
-                            <td class="produto-marca">${p.marca}</td>
-                            <td class="produto-descricao">${p.descricao}</td>
-                            <td class="produto-preco">${p.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
-                            <td class="produto-quantidade">${p.quantidade}</td>
-                        </tr>
-                    `
-                }).join('')}
-            </tbody>
-        </table>
+            <table class="table table-hover table-striped">
+                <thead id="tableHeader">
+                    <tr>
+                        <th id="codigo">Código</th>
+                        <th id="marca">Marca</th>
+                        <th id="descricao">Descrição</th>
+                        <th id="preco">Preço</th>
+                        <th id="quantidade">Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${this._payloadContent.map(p => {
+                        return `
+                            <tr id="produto${p.id}" class="produto" data-bs-toggle="modal" data-bs-target="#modalAlteracaoExclusao">
+                                <td class="produto-id">${p.id}</td>
+                                <td class="produto-marca">${p.marca}</td>
+                                <td class="produto-descricao">${p.descricao}</td>
+                                <td class="produto-preco">${p.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+                                <td class="produto-quantidade">${p.quantidade}</td>
+                            </tr>
+                        `
+                    }).join('')}
+                </tbody>
+            </table>
     `
 
         return template;
