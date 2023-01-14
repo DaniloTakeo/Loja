@@ -67,13 +67,13 @@ export default class ProdutoView extends PaginatedView {
     }
  
     setPayload(payload) {
-        this._paylaod = payload;
+        this._payload = payload;
     }
 
     _getPayloadInformation() {
-        this._totalElements = this._paylaod.totalElements;
-        this._payloadContent = this._paylaod.content;
-        this._numberOfPages = this._paylaod.totalPages;
+        this._totalElements = this._payload.totalElements;
+        this._payloadContent = this._payload.content;
+        this._numberOfPages = this._payload.totalPages;
     }
 
     _paginationUtil() {

@@ -23,7 +23,16 @@ export default class EntradaProdutosView extends PaginatedView {
                     </tr>
                 </thead>
                 <tbody>
-
+                    ${this._payloadContent.map(p => {
+                        return `
+                            <tr>
+                                <td>${p.id}</td>
+                                <td>${p.produto.marca} ${p.produto.descricao}</td>
+                                <td>${p.quantidade}</td>
+                                <td>${p.dataEntrada}</td>
+                            </tr>
+                        `
+                    }).join('')}
                 </tbody>
             <table>
         `;
@@ -32,7 +41,11 @@ export default class EntradaProdutosView extends PaginatedView {
     }
 
     update() {
+        this._getPayloadInformation();
         this._elemento.innerHTML = this._template();
+        this._elemento.appendChild(this._paginationElement);
+        this._paginationUtil();
+        this._paginationMenuView.update();
     }
 
     _paginationUtil() {
@@ -42,5 +55,19 @@ export default class EntradaProdutosView extends PaginatedView {
             this._totalElements,
             this._activePage
         );
+    }
+
+    _getPayloadInformation() {
+        this._totalElements = this._payload.totalElements;
+        this._payloadContent = this._payload.content;
+        this._numberOfPages = this._payload.totalPages;
+    }
+
+    setPayload(payload) {
+        this._payload = payload;
+    }
+
+    get payloadContent() {
+        return this._payloadContent;
     }
 }

@@ -5,7 +5,6 @@ class EntradaProdutoService  {
     }
  
     adicionar(entradaEstoque) {
-        console.log('fui chamado');
         fetch(`${this._defaultAPIadress}entradaEstoque`, {
             method: 'POST',
             headers: {
@@ -16,6 +15,15 @@ class EntradaProdutoService  {
         .then((response) => response.json)
         .then((entradaEstoque) => {
             console.log('Success', entradaEstoque);
+        });
+    }
+
+    async listarTodos(pagina) {
+        return fetch(`${this._defaultAPIadress}entradaEstoque?page=${pagina}`, {
+            method: 'GET'
         })
+        .then(function(response) {
+            return response.json();
+        });
     }
 }
