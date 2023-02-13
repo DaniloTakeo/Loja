@@ -49,25 +49,15 @@ export default class ProdutoView extends PaginatedView {
         this._paginationUtil();
         this._paginationMenuView.update();
     }
-
-    fillModal(modal, produtoSelecionado) {
-        let modalTitle = modal.querySelector('.modal-title');
-        let id = modal.querySelector('#inputModalId');
-        let marca = modal.querySelector('#inputModalMarca');
-        let descricao = modal.querySelector('#inputModalDescricao');
-        let preco = modal.querySelector('#inputModalPreco');
-        let quantidade = modal.querySelector('#inputModalQuantidade');
-
-        modalTitle.innerHTML = `${produtoSelecionado.marca} ${produtoSelecionado.descricao}`;
-        id.value = produtoSelecionado.id;
-        marca.value = produtoSelecionado.marca;
-        descricao.value = produtoSelecionado.descricao;
-        preco.value = produtoSelecionado.preco;
-        quantidade.value =  produtoSelecionado.quantidade;
-    }
  
     setPayload(payload) {
         this._payload = payload;
+    }
+
+    setMessage(message) {
+        let messageBox = `<div class="alert alert-secondary mt-3" role="alert">${message}</div>`
+
+        this._elemento.innerHTML = messageBox;
     }
 
     _getPayloadInformation() {

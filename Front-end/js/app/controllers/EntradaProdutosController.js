@@ -13,13 +13,13 @@ export class EntradaProdutosController {
         this._headerController = new HeaderController(this._pageName);
         this._entradaService = new EntradaProdutoService();
         this._produtoService = new ProdutoService();
-        this._entradasView = new EntradaProdutosView(this._entradasView);
-        this._paginationController = new PaginationController(this._produtosView, this);
+        this._entradasProdutosView = new EntradaProdutosView(this._entradasView);
+        this._paginationController = new PaginationController(this._entradasProdutosView, this);
         this._entradasPayload = new Payload();
 
         this._preencherInputProduto();
         this._botaoAdicionarAction();
-        this.listar(this._entradasView.activePage);
+        this.listar(this._entradasProdutosView.activePage);
     }
 
     async _preencherInputProduto() {
@@ -63,9 +63,9 @@ export class EntradaProdutosController {
     async listar(pagina) {
         this._entradasPayload.limparPayload();
         this._entradasPayload.adicionarElementos(await this._entradaService.listarTodos(pagina));
-        console.log(this._entradasPayload.getPayload());
-        this._entradasView.setPayload(this._entradasPayload.getPayload());
-        this._entradasView.update();
+        this._entradasProdutosView.setPayload(this._entradasPayload.getPayload());
+        this._entradasProdutosView.update();
+        this._paginationController.paginationActions();
     }
     
     _limparFormulario() {
@@ -76,7 +76,6 @@ export class EntradaProdutosController {
 
     _botaoAdicionarAction() {
         let botaoAdicionar = this._modalRegistro.querySelector('#botaoAdicionar');
-        console.log(botaoAdicionar);
 
         botaoAdicionar.addEventListener('click', () => {
             this.adicionar();

@@ -16,4 +16,8 @@ class Payload {
         this._paginaElementos = [];
     }
 
+    isEmpty() {
+        return this._paginaElementos == false ? true : false;
+    }
+
 }
